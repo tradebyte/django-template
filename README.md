@@ -68,3 +68,6 @@ EOL
 
 The limit which the commit-hook is using for linting is *8.0* hence every try to commit something below will be rejected.
 Settings for the linter can be found in the [.pylintrc](.pylintrc) file
+
+The pylint manual can be found [here](https://pylint.readthedocs.io/en/latest/).
+The git-pylint-commit-hook tool can be found on [GitHub](https://github.com/sebdah/git-pylint-commit-hook).
