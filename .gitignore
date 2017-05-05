@@ -3,3 +3,4 @@
 # described in https://git-scm.com/docs/gitignore
 
 __pycache__
+coverage_html_report/

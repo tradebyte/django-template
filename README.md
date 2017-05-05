@@ -52,6 +52,31 @@ OK
 Destroying test database for alias 'default'...
 ```
 
+### Using code coverage
+
+> We aim to get a minimum code coverage of 95%
+
+Getting the code coverage is also possible:
+```Shell
+(myenv) $ coverage run manage.py test fe.tests # Generates the coverage report in the file .coverage
+...
+(myenv) $ coverage html # Generates a HTML coverage report located in the dir coverage_html_report
+(myenv) $ coverage report # Displays the report in the console
+Name                                    Stmts   Miss  Cover   Missing
+---------------------------------------------------------------------
+fe/__init__.py                              0      0   100%
+fe/tests/models/test_models_simple.py       4      0   100%
+fe/tests/views/sample_class.py              5      1    80%   7
+fe/tests/views/test_views_simple.py         8      0   100%
+fe/urls.py                                  3      0   100%
+---------------------------------------------------------------------
+TOTAL                                      20      1    95%
+```
+This:
+* ```coverage run manage.py test fe.tests```: Generates the coverage report in the file .coverage
+* ```coverage html```:Generates a HTML coverage report located in the dir coverage_html_report
+* ```coverage report```:Displays the report in the console
+
 ## Install Linter
 
 The *pylint* linter can be used as a pre-commit hook using *git-pylint-commit-hook*

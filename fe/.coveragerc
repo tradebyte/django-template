@@ -1,0 +1,18 @@
+[run]
+omit =
+    */manage.py
+    */myenv/*
+    */settings.py
+    */wsgi.py
+
+[report]
+fail_under = 95
+omit =
+    */manage.py
+    */myenv/*
+    */settings.py
+    */wsgi.py
+show_missing = True
+
+[html]
+directory = coverage_html_report
