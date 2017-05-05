@@ -3,7 +3,7 @@
 You can use python venv!
 Installing requirements is done via *pip*.
 
-```bash
+```shell
 $ python3 -m venv myenv
 (myenv) $ pip install -r ../requirements.txt
 ```
@@ -12,7 +12,7 @@ New requirements for the whole repository should be added to [requirements.txt](
 
 ### Activating to the virtual env
 
-```bash
+```shell
 $ source myenv/bin/activate
 (myenv) $
 ```
@@ -26,7 +26,8 @@ You can exclude the myenv directory from version control in *.git/info/exclude*
 Testing is started via *manage.py*
 
 Starting tests for a whole app:
-```bash
+
+```shell
 (myenv) $ ./manage.py test fe.tests
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
@@ -36,11 +37,10 @@ Ran 2 tests in 0.001s
 
 OK
 Destroying test database for alias 'default'...
-
 ```
 
 Its also possible to start a subset of the tests:
-```bash
+```Shell
 (myenv) $ ./manage.py test fe.tests.models
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
@@ -57,7 +57,7 @@ Destroying test database for alias 'default'...
 The *pylint* linter can be used as a pre-commit hook using *git-pylint-commit-hook*
 
 Configuring the linter as a pre-commit hook
-```bash
+```shell
 (myenv) $ cd $git_root
 (myenv) $ mv .git/hooks/pre-commit.sample .git/hooks/pre-commit
 (myenv) $ cat > .git/hooks/pre-commit << EOL
