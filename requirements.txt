@@ -1,0 +1,2 @@
+pylint==1.7.1
+git-pylint-commit-hook==2.2.1

@@ -1,10 +1,14 @@
 ## Setting up the working environment
 
 You can use python venv!
+Installing requirements is done via *pip*.
 
 ```bash
 $ python3 -m venv myenv
+(myenv) $ pip install -r ../requirements.txt
 ```
+
+New requirements for the whole repository should be added to [requirements.txt](requirements.txt) in the git root directory.
 
 ### Activating to the virtual env
 
@@ -15,11 +19,11 @@ $ source myenv/bin/activate
 
 Now you can use pip to install requirements etc.
 
-You can exclude the myenv directory from version control in _.git/info/exclude_
+You can exclude the myenv directory from version control in *.git/info/exclude*
 
 ## Starting tests
 
-Testing is started via _manage.py_
+Testing is started via *manage.py*
 
 Starting tests for a whole app:
 ```bash
@@ -47,3 +51,20 @@ Ran 1 test in 0.001s
 OK
 Destroying test database for alias 'default'...
 ```
+
+## Install Linter
+
+The *pylint* linter can be used as a pre-commit hook using *git-pylint-commit-hook*
+
+Configuring the linter as a pre-commit hook
+```bash
+(myenv) $ cd $git_root
+(myenv) $ mv .git/hooks/pre-commit.sample .git/hooks/pre-commit
+(myenv) $ cat > .git/hooks/pre-commit << EOL
+#!/bin/sh
+git-pylint-commit-hook
+EOL
+```
+
+The limit which the commit-hook is using for linting is *8.0* hence every try to commit something below will be rejected.
+Settings for the linter can be found in the [.pylintrc](.pylintrc) file
