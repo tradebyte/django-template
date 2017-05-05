@@ -14,3 +14,5 @@ $ source myenv/bin/activate
 ```
 
 Now you can use pip to install requirements etc.
+
+You can exclude the myenv directory from version control in _.git/info/exclude_
