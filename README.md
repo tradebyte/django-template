@@ -34,23 +34,6 @@ You can exclude the myenv directory from version control in *.git/info/exclude*
 
 ```shell
 (myenv) $ make tests
-Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-..
-----------------------------------------------------------------------
-Ran 2 tests in 0.001s
-
-OK
-Destroying test database for alias 'default'...
-Name                                    Stmts   Miss  Cover   Missing
----------------------------------------------------------------------
-{{ project_name }}/__init__.py                              0      0   100%
-{{ project_name }}/tests/models/test_models_simple.py       4      0   100%
-{{ project_name }}/tests/views/sample_class.py              5      1    80%   7
-{{ project_name }}/tests/views/test_views_simple.py         8      0   100%
-{{ project_name }}/urls.py                                  3      0   100%
----------------------------------------------------------------------
-TOTAL                                      20      1    95%
 ```
 
 This will execute all unittests it finds in the {{ project_name }}.tests module.
@@ -63,27 +46,11 @@ Coverage also generates a html report in *coverage_html_report* and after prints
 If you do not want coverage to be executed, use tests_no_coverage instead
 ```shell
 (myenv) $ make tests_no_coverage
-Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-..
-----------------------------------------------------------------------
-Ran 2 tests in 0.001s
-
-OK
-Destroying test database for alias 'default'...
 ```
 
 Both commands also work with a subset of the tests:
 ```Shell
 (myenv) $ make tests TESTMODULE={{ project_name }}.tests.models
-Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-.
-----------------------------------------------------------------------
-Ran 1 test in 0.001s
-
-OK
-Destroying test database for alias 'default'...
 ```
 
 Settings for the coverage tool can be found in the [.coveragerc](.coveragerc) file.
