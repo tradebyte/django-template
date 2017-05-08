@@ -11,9 +11,7 @@ django-admin startproject -e py,md --template https://github.com/tradebyte/djang
 
 This will create a folder with the *project_name* in it with a modified README.md and a folder with the django files in it.
 
-{% endif %}
-
-# {{ project_name }}
+{% endif %}# {{ project_name }}
 
 ## Setup working environment
 
