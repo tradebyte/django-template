@@ -4,6 +4,7 @@ omit =
     */myenv/*
     */settings.py
     */wsgi.py
+    */common/utils.py
 
 [report]
 fail_under = 95
@@ -12,6 +13,7 @@ omit =
     */myenv/*
     */settings.py
     */wsgi.py
+    */common/utils.py
 show_missing = True
 
 [html]
