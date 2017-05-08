@@ -113,3 +113,10 @@ Settings for the linter can be found in the [.pylintrc](.pylintrc) file.
 
 The pylint manual can be found [here](https://pylint.readthedocs.io/en/latest/).
 The git-pylint-commit-hook tool can be found on [GitHub](https://github.com/sebdah/git-pylint-commit-hook).
+
+## Deployment
+
+Current stage is set by a file called *.target* in the root directory of the project.
+Valid values lead to their requirements, respectively: [development](requirements/development.txt) / [staging](requirements/staging.txt) / [production](requirements/production.txt)
+
+[base](requirements/base.txt) should be included for every stage.
