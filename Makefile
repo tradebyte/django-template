@@ -2,6 +2,7 @@ PYTHON=./myenv/bin/python
 PIP=./myenv/bin/pip
 TESTMODULE?={{ project_name }}.tests
 
+# Content of the pre-commit hook
 define PRECOMMIT
 #!/bin/sh
 git-pylint-commit-hook --ignore urls.py --ignore wsgi.py
@@ -9,20 +10,20 @@ endef
 
 export PRECOMMIT
 
-setup: virtualenv requirements
+all: requirements
 
 virtualenv:
 	test -x $(PYTHON) | python3 -m venv myenv
 
-requirements:
+requirements: virtualenv
 	$(PIP) install -r requirements.txt --upgrade
 
-tests:
+tests: requirements
 	coverage run manage.py test $(TESTMODULE)
 	coverage html
 	coverage report
 
-tests_no_coverage:
+tests_no_coverage: requirements
 	./manage.py test $(TESTMODULE)
 
 install_pre_commit:

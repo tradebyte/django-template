@@ -16,7 +16,7 @@ This will create a folder with the *project_name* in it with a modified README.m
 ## Setup working environment
 
 ```shell
-$ make setup
+$ make
 ```
 
 This will install a virtualenv in the folder *myenv* and install requirements via pip.
