@@ -1,5 +1,5 @@
-PYTHON=./env/bin/python
-PIP=./env/bin/pip
+PYTHON=./myenv/bin/python
+PIP=./myenv/bin/pip
 TESTMODULE?={{ project_name }}.tests
 
 define PRECOMMIT
