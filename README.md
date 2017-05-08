@@ -6,7 +6,7 @@ For setting up the template you need django-admin, install it via pip or in a vi
 
 Then do the following:
 ```shell
-django-admin startproject -e py,md --template https://github.com/tradebyte/django-template/archive/master.zip project_name
+django-admin startproject --template https://github.com/tradebyte/django-template/archive/master.zip --extension=py,md --name=Makefile <project_name>
 ```
 
 This will create a folder with the *project_name* in it with a modified README.md and a folder with the django files in it.
@@ -54,7 +54,7 @@ TOTAL                                      20      1    95%
 ```
 
 This will execute all unittests it finds in the {{ project_name }}.tests module.
-Also coverage is enabled which ends up in a file called [.coveragerc](.coveragerc) in the root directory.
+Also coverage is enabled which ends up in a file called [.coverage](.coverage) in the root directory.
 Coverage also generates a html report in *coverage_html_report* and after prints a summary to stdout.
 
 > We aim to get a minimum code coverage of 95%
@@ -106,7 +106,7 @@ This will move the *.git/hooks/pre-commit.sample* file to *.git/hooks/pre-commit
 
 To use the linter for your added files simply use git-pylint-commit-hook.
 ```shell
-(myenv) $ git-pylint-commit-hook
+(myenv) $ git-pylint-commit-hook --ignore urls.py --ignore wsgi.py
 ```
 
 Settings for the linter can be found in the [.pylintrc](.pylintrc) file.
