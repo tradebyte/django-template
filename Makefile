@@ -1,5 +1,17 @@
+# Setting the target, defaults to "development"
+TARGET_FILE=.target
+
+ifeq ($(wildcard $(TARGET_FILE) ),$(TARGET_FILE))
+	TARGET?=$(shell cat $(TARGET_FILE))
+else
+	TARGET?=development
+endif
+
+# Python executables
 PYTHON=./myenv/bin/python
 PIP=./myenv/bin/pip
+
+# Basemodule in which tests reside
 TESTMODULE?={{ project_name }}.tests
 
 # Content of the pre-commit hook
@@ -10,13 +22,15 @@ endef
 
 export PRECOMMIT
 
+
 all: requirements
 
 virtualenv:
 	test -x $(PYTHON) | python3 -m venv myenv
 
 requirements: virtualenv
-	$(PIP) install -r requirements.txt --upgrade
+	$(PIP) install -r requirements/base.txt --upgrade
+	$(PIP) install -r requirements/$(TARGET).txt --upgrade
 
 tests:
 	coverage run manage.py test $(TESTMODULE)
