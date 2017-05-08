@@ -6,44 +6,34 @@ For setting up the template you need django-admin, install it via pip or in a vi
 
 Then do the following:
 ```shell
-django-admin startproject -e py,md --template https://github.com/tradebyte/django-template/archive/master.zip project_name
+django-admin startproject --template https://github.com/tradebyte/django-template/archive/master.zip --extension=py,md --name=Makefile <project_name>
 ```
 
 This will create a folder with the *project_name* in it with a modified README.md and a folder with the django files in it.
 
-{% endif %}
+{% endif %}# {{ project_name }}
 
-## Setting up the working environment
-
-You can use python venv!
-Installing requirements is done via *pip*.
+## Setup working environment
 
 ```shell
-$ python3 -m venv myenv
-(myenv) $ pip install -r requirements.txt
+$ make
 ```
 
-New requirements for the whole repository should be added to [requirements.txt](requirements.txt) in the git root directory.
+This will install a virtualenv in the folder *myenv* and install requirements via pip.
 
-### Activating to the virtual env
+### Using the virtual env
 
 ```shell
 $ source myenv/bin/activate
 (myenv) $
 ```
 
-Now you can use pip to install requirements etc.
-
 You can exclude the myenv directory from version control in *.git/info/exclude*
 
-## Starting tests
-
-Testing is started via *manage.py*
-
-Starting tests for a whole app:
+## Executing tests
 
 ```shell
-(myenv) $ ./manage.py test {{ project_name }}.tests
+(myenv) $ make tests
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 ..
@@ -52,31 +42,6 @@ Ran 2 tests in 0.001s
 
 OK
 Destroying test database for alias 'default'...
-```
-
-Its also possible to start a subset of the tests:
-```Shell
-(myenv) $ ./manage.py test {{ project_name }}.tests.models
-Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-.
-----------------------------------------------------------------------
-Ran 1 test in 0.001s
-
-OK
-Destroying test database for alias 'default'...
-```
-
-### Using code coverage
-
-> We aim to get a minimum code coverage of 95%
-
-Getting the code coverage is also possible:
-```Shell
-(myenv) $ coverage run manage.py test {{ project_name }}.tests # Generates the coverage report in the file .coverage
-...
-(myenv) $ coverage html # Generates a HTML coverage report located in the dir coverage_html_report
-(myenv) $ coverage report # Displays the report in the console
 Name                                    Stmts   Miss  Cover   Missing
 ---------------------------------------------------------------------
 {{ project_name }}/__init__.py                              0      0   100%
@@ -87,27 +52,64 @@ Name                                    Stmts   Miss  Cover   Missing
 ---------------------------------------------------------------------
 TOTAL                                      20      1    95%
 ```
-This:
-* ```coverage run manage.py test {{ project_name }}.tests```: Generates the coverage report in the file .coverage
-* ```coverage html```:Generates a HTML coverage report located in the dir coverage_html_report
-* ```coverage report```:Displays the report in the console
 
-## Install Linter
+This will execute all unittests it finds in the {{ project_name }}.tests module.
+Also coverage is enabled which ends up in a file called [.coverage](.coverage) in the root directory.
+Coverage also generates a html report in *coverage_html_report* and after prints a summary to stdout.
 
-The *pylint* linter can be used as a pre-commit hook using *git-pylint-commit-hook*
+> We aim to get a minimum code coverage of 95%
+> Remember to use coverage before committing so the build will not fail after pushing!
 
-Configuring the linter as a pre-commit hook
+If you do not want coverage to be executed, use tests_no_coverage instead
 ```shell
-(myenv) $ cd $git_root
-(myenv) $ mv .git/hooks/pre-commit.sample .git/hooks/pre-commit
-(myenv) $ cat > .git/hooks/pre-commit << EOL
-#!/bin/sh
-git-pylint-commit-hook --ignore urls.py --ignore wsgi.py
-EOL
+(myenv) $ make tests_no_coverage
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+Destroying test database for alias 'default'...
 ```
 
-The limit which the commit-hook is using for linting is *8.0* hence every try to commit something below will be rejected.
-Settings for the linter can be found in the [.pylintrc](.pylintrc) file
+Both commands also work with a subset of the tests:
+```Shell
+(myenv) $ make tests TESTMODULE={{ project_name }}.tests.models
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+Settings for the coverage tool can be found in the [.coveragerc](.coveragerc) file.
+
+## Use the Linter
+
+We gonna use pylint for linting functionality.
+
+> Every file with a rating below 8.0 will be rejected after pushing a commit!
+
+First, install the pre-commit hook which will check your files with the linter before you commit.
+
+> Remember, since it creates a pre-commit hook you need to init the git repository first.
+
+```shell
+(myenv) $ make install_pre_commit
+```
+
+This will move the *.git/hooks/pre-commit.sample* file to *.git/hooks/pre-commit*, puts content in it and makes it executable.
+
+To use the linter for your added files simply use git-pylint-commit-hook.
+```shell
+(myenv) $ git-pylint-commit-hook --ignore urls.py --ignore wsgi.py
+```
+
+Settings for the linter can be found in the [.pylintrc](.pylintrc) file.
 
 The pylint manual can be found [here](https://pylint.readthedocs.io/en/latest/).
 The git-pylint-commit-hook tool can be found on [GitHub](https://github.com/sebdah/git-pylint-commit-hook).
