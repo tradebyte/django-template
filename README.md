@@ -7,7 +7,7 @@ For setting up the template you need django-admin, install it via pip or in a vi
 Then do the following:
 ```shell
 django-admin startproject -e py,md --template https://github.com/tradebyte/django-template/archive/master.zip project_name
-```shell
+```
 
 This will create a folder with the *project_name* in it with a modified README.md and a folder with the django files in it.
 
