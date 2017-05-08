@@ -15,6 +15,6 @@ from {{ project_name }}.common.utils import select_target
 
 
 # Using select_target() to get the target by a .target file, if one exists.
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.%s" % select_target())
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.%s" % select_target)
 
 application = get_wsgi_application()
