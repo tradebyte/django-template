@@ -18,12 +18,12 @@ virtualenv:
 requirements: virtualenv
 	$(PIP) install -r requirements.txt --upgrade
 
-tests: requirements
+tests:
 	coverage run manage.py test $(TESTMODULE)
 	coverage html
 	coverage report
 
-tests_no_coverage: requirements
+tests_no_coverage:
 	./manage.py test $(TESTMODULE)
 
 install_pre_commit:
