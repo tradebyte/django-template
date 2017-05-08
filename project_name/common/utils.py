@@ -16,3 +16,5 @@ def select_target():
 
         if not target or not os.path.isfile('{{ project_name }}/settings/%s.py' % target):
             sys.exit("Missing settings file for target '%s'." % target)
+
+    return target
