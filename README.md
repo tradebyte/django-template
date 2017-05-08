@@ -1,3 +1,18 @@
+{% if not project_name %}
+
+# Project template
+
+For setting up the template you need django-admin, install it via pip or in a virtual environment.
+
+Then do the following:
+```shell
+django-admin startproject -e py,md --template https://github.com/tradebyte/django-template/archive/master.zip project_name
+```shell
+
+This will create a folder with the *project_name* in it with a modified README.md and a folder with the django files in it.
+
+{% endif %}
+
 ## Setting up the working environment
 
 You can use python venv!
