@@ -6,10 +6,10 @@ class SimpleTest(TestCase):
     """
     Simple test for showing testing with this package
 
-    For execution go to directory $projectRoot/{% project_name %}/
-    and use `./manage.py test {% project_name %}.tests`
+    For execution go to directory $projectRoot/{{ project_name }}/
+    and use `./manage.py test {{ project_name }}.tests`
 
-    You can also use `./manage.py test {% project_name %}.tests.models`
+    You can also use `./manage.py test {{ project_name }}.tests.models`
     """
 
     def test_model_is_model(self):
