@@ -32,10 +32,9 @@ requirements: virtualenv
 	$(PIP) install -r requirements/base.txt --upgrade
 	$(PIP) install -r requirements/$(TARGET).txt --upgrade
 
+# We do it in a single line so if one of the commands exits with > 0 the others get still executed
 tests:
-	coverage run manage.py test $(TESTMODULE)
-	coverage html
-	coverage report
+	coverage run manage.py test $(TESTMODULE);coverage html;coverage report
 
 tests_no_coverage:
 	./manage.py test $(TESTMODULE)
