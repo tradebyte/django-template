@@ -4,3 +4,4 @@
 
 __pycache__
 coverage_html_report/
+.coverage
