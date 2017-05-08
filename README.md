@@ -28,7 +28,7 @@ Testing is started via *manage.py*
 Starting tests for a whole app:
 
 ```shell
-(myenv) $ ./manage.py test fe.tests
+(myenv) $ ./manage.py test project_name.tests
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 ..
@@ -41,7 +41,7 @@ Destroying test database for alias 'default'...
 
 Its also possible to start a subset of the tests:
 ```Shell
-(myenv) $ ./manage.py test fe.tests.models
+(myenv) $ ./manage.py test project_name.tests.models
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 .
@@ -58,22 +58,22 @@ Destroying test database for alias 'default'...
 
 Getting the code coverage is also possible:
 ```Shell
-(myenv) $ coverage run manage.py test fe.tests # Generates the coverage report in the file .coverage
+(myenv) $ coverage run manage.py test project_name.tests # Generates the coverage report in the file .coverage
 ...
 (myenv) $ coverage html # Generates a HTML coverage report located in the dir coverage_html_report
 (myenv) $ coverage report # Displays the report in the console
 Name                                    Stmts   Miss  Cover   Missing
 ---------------------------------------------------------------------
-fe/__init__.py                              0      0   100%
-fe/tests/models/test_models_simple.py       4      0   100%
-fe/tests/views/sample_class.py              5      1    80%   7
-fe/tests/views/test_views_simple.py         8      0   100%
-fe/urls.py                                  3      0   100%
+project_name/__init__.py                              0      0   100%
+project_name/tests/models/test_models_simple.py       4      0   100%
+project_name/tests/views/sample_class.py              5      1    80%   7
+project_name/tests/views/test_views_simple.py         8      0   100%
+project_name/urls.py                                  3      0   100%
 ---------------------------------------------------------------------
 TOTAL                                      20      1    95%
 ```
 This:
-* ```coverage run manage.py test fe.tests```: Generates the coverage report in the file .coverage
+* ```coverage run manage.py test project_name.tests```: Generates the coverage report in the file .coverage
 * ```coverage html```:Generates a HTML coverage report located in the dir coverage_html_report
 * ```coverage report```:Displays the report in the console
 
@@ -87,7 +87,7 @@ Configuring the linter as a pre-commit hook
 (myenv) $ mv .git/hooks/pre-commit.sample .git/hooks/pre-commit
 (myenv) $ cat > .git/hooks/pre-commit << EOL
 #!/bin/sh
-git-pylint-commit-hook --ignore fe/urls.py --ignore fe/wsgi.py
+git-pylint-commit-hook --ignore urls.py --ignore wsgi.py
 EOL
 ```
 
