@@ -5,7 +5,7 @@ Installing requirements is done via *pip*.
 
 ```shell
 $ python3 -m venv myenv
-(myenv) $ pip install -r ../requirements.txt
+(myenv) $ pip install -r requirements.txt
 ```
 
 New requirements for the whole repository should be added to [requirements.txt](requirements.txt) in the git root directory.
@@ -87,7 +87,7 @@ Configuring the linter as a pre-commit hook
 (myenv) $ mv .git/hooks/pre-commit.sample .git/hooks/pre-commit
 (myenv) $ cat > .git/hooks/pre-commit << EOL
 #!/bin/sh
-git-pylint-commit-hook
+git-pylint-commit-hook --ignore fe/urls.py --ignore fe/wsgi.py
 EOL
 ```
 
