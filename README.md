@@ -11,7 +11,7 @@ You can create a new project out of this template by using a gist.
 
 Do the following, replace <project_name> with your desired project name:
 ```shell
-wget -O - https://gist.githubusercontent.com/mjainta/2e57c4b04d1bb9c526dc0843b4353aa5/raw/40bfb100c520e840f0f3ba302e9af25b0bb4de29/start-django-project.sh | bash -s <project_name>
+wget -O - https://gist.githubusercontent.com/mjainta/2e57c4b04d1bb9c526dc0843b4353aa5/raw/fbf135ae7b0935581c101136f2fd802747b21cf8/start-django-project.sh | bash -s <project_name>
 ```
 
 This will create a folder called *project_name* in the current directory.
