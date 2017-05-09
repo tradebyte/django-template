@@ -43,3 +43,6 @@ install_pre_commit:
 	mv .git/hooks/pre-commit.sample .git/hooks/pre-commit
 	echo "$$PRECOMMIT" > .git/hooks/pre-commit
 	chmod +x .git/hooks/pre-commit
+
+psql:
+	docker exec -ti --user postgres {{ project_name }} psql --dbname={{ project_name }}

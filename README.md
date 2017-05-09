@@ -86,6 +86,27 @@ Settings for the linter can be found in the [.pylintrc](.pylintrc) file.
 The pylint manual can be found [here](https://pylint.readthedocs.io/en/latest/).
 The git-pylint-commit-hook tool can be found on [GitHub](https://github.com/sebdah/git-pylint-commit-hook).
 
+## Using postgresql
+
+Built-in you can use a postgresql database, instead of the sqlite default.
+
+Requirements:
+* Edit the [base.py]({{ project_name }}/settings/base.py) and set the **DATABASES** setting as desired.
+* Edit the [base.txt](requirements/base.py) and uncomment the line for the **psycopg2** library.
+    * After uncommenting, run `make requirements` to install **psycopg2**
+* Installed docker and docker-compose in version 1.10.0+
+
+The postgresql database is realized using docker. Use `docker-compose up -d` to boot the database server.
+Use `docker-compose down` to bring it back down.
+
+> Remember: The tests will also use this database! Therefore, you have to run it when testing or modifying [development.py]({{ project_name }}/settings/development.py) and add there the sqlite database for testing.
+
+Connect to it via `make psql`.
+
+> Data is not preserved by default! Modify [docker-compose.yml](docker-compose.yml) to use volumes if you need to.
+
+Documentation on the postgresql image is found on [hub.docker.com](https://hub.docker.com/_/postgres/).
+
 ## Deployment
 
 Current stage is set by a file called *.target* in the root directory of the project.
