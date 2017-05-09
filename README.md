@@ -2,16 +2,21 @@
 
 # Project template
 
-For setting up the template you need django-admin, install it via pip or in a virtual environment.
+You can create a new project out of this template by using a gist.
 
-Then do the following:
+**Requirements:**
+* python3
+* bash
+* wget
+
+Do the following, replace <project_name> with your desired project name:
 ```shell
-django-admin.py startproject --template https://github.com/tradebyte/django-template/archive/master.zip --extension=py,md --name=Makefile <project_name>
+wget -O - https://gist.githubusercontent.com/mjainta/2e57c4b04d1bb9c526dc0843b4353aa5/raw/50ebca17747b2f1875034a8e076ef002e4c11fbf/start-django-project.sh | bash -s <project_name>
 ```
 
-This will create a folder with the *project_name* in it with a modified README.md and a folder with the django files in it.
+This will create a folder called *project_name* in the current directory.
 
-{% endif %}# {{ project_name }}
+{% endif %}# {{ project_name|title }}
 
 ## Setup working environment
 
