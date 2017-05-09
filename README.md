@@ -93,6 +93,7 @@ Built-in you can use a postgresql database, instead of the sqlite default.
 Requirements:
 * Edit the [base.py]({{ project_name }}/settings/base.py) and set the **DATABASES** setting as desired.
 * Edit the [base.txt](requirements/base.py) and uncomment the line for the **psycopg2** library.
+    * After uncommenting, run ```make requirements``` to install **psycopg2**
 * Installed docker and docker-compose in version 1.10.0+
 
 The postgresql database is realized using docker. Use ```docker-compose up -d``` to boot the database server.
