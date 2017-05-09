@@ -1,0 +1,19 @@
+services:
+  - postgres:9.6
+
+variables:
+  POSTGRES_DB: {{ project_name }}
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: "mypassword"
+
+test:
+  image: python:3.6
+  variables:
+    DATABASE_HOST: postgres
+    DATABASE_USER: postgres
+    DATABASE_PASSWORD: "mypassword"
+  script:
+  - make
+  - source myenv/bin/activate
+  - echo test > .target
+  - make tests

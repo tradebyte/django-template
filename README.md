@@ -91,7 +91,7 @@ The git-pylint-commit-hook tool can be found on [GitHub](https://github.com/sebd
 Built-in you can use a postgresql database, instead of the sqlite default.
 
 Requirements:
-* Edit the [base.py]({{ project_name }}/settings/base.py) and set the **DATABASES** setting as desired.
+* Edit the [base.py]({{ project_name }}/settings/base.py) and [base.py]({{ project_name }}/settings/test.py) and set the **DATABASES** setting as desired.
 * Edit the [base.txt](requirements/base.py) and uncomment the line for the **psycopg2** library.
     * After uncommenting, run `make requirements` to install **psycopg2**
 * Installed docker and docker-compose in version 1.10.0+
@@ -110,6 +110,10 @@ Documentation on the postgresql image is found on [hub.docker.com](https://hub.d
 ## Deployment
 
 Current stage is set by a file called *.target* in the root directory of the project.
-Valid values lead to their requirements, respectively: [development](requirements/development.txt) / [staging](requirements/staging.txt) / [production](requirements/production.txt)
+Valid values lead to their requirements, respectively: [test](requirements/test.txt) / [development](requirements/development.txt) / [staging](requirements/staging.txt) / [production](requirements/production.txt)
 
 [base](requirements/base.txt) should be included for every stage.
+
+### GitLab
+
+You can use GitLab-CI for deployment, the [.gitlab-ci.yml](.gitlab-ci.yml) may help in setting up the build and deployment system.
