@@ -1,4 +1,4 @@
-from djangomade.settings.base import *
+from {{ project_name }}.settings.base import *
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -6,7 +6,7 @@ from djangomade.settings.base import *
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'djangomade',
+#         'NAME': '{{ project_name }}',
 #         'USER': 'postgres',
 #         'PASSWORD': 'mypassword',
 #         'HOST': 'postgres',
