@@ -6,7 +6,20 @@ variables:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: "mypassword"
 
-test:
+stages:
+  - test
+
+lint:
+  stage: test
+  image: python:3.6
+  script:
+  - make
+  - source myenv/bin/activate
+  - make pylint
+  allow_failure: true
+
+unittest:
+  stage: test
   image: python:3.6
   variables:
     DATABASE_HOST: postgres
@@ -17,3 +30,4 @@ test:
   - source myenv/bin/activate
   - echo test > .target
   - make tests
+  coverage: '/TOTAL\s+\d+\s+\d+\s+(\d+)/'

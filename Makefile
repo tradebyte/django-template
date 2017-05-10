@@ -46,3 +46,6 @@ install_pre_commit:
 
 psql:
 	docker exec -ti --user postgres {{ project_name }} psql --dbname={{ project_name }}
+
+pylint:
+	find {{ project_name }}/ -name "*.py" ! -path "{{ project_name }}/settings/*" ! -path "{{ project_name }}/urls.py" ! -path "{{ project_name }}/wsgi.py" -exec pylint --reports=yes "{}" +
