@@ -17,3 +17,4 @@ test:
   - source myenv/bin/activate
   - echo test > .target
   - make tests
+  coverage: '/TOTAL\s+\d+\s+\d+\s+(\d+)/'
