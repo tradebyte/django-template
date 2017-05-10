@@ -81,6 +81,11 @@ To use the linter for your added files simply use git-pylint-commit-hook.
 (myenv) $ git-pylint-commit-hook --ignore urls.py --ignore wsgi.py
 ```
 
+You can also use pylint directly if you want to check every file (except a few which get ignored)*.
+```shell
+(myenv) $ make pylint
+```
+
 Settings for the linter can be found in the [.pylintrc](.pylintrc) file.
 
 The pylint manual can be found [here](https://pylint.readthedocs.io/en/latest/).
