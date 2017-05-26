@@ -83,7 +83,7 @@ DATABASES = {
          'NAME': '{{ project_name }}',
          'USER': 'postgres',
          'PASSWORD': 'mypassword',
-         'HOST': '127.0.0.1',
+         'HOST': 'postgres',
          'PORT': '5432'
      }
 }
