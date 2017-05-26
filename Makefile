@@ -17,6 +17,9 @@ images:
 up:
 	docker-compose up {{ project_name }} postgres
 
+down:
+	docker-compose down
+
 lint:
 	docker-compose run --rm py find {{ project_name }}/ -name "*.py" ! -path "{{ project_name }}/settings/*" ! -path "{{ project_name }}/urls.py" ! -path "{{ project_name }}/wsgi.py" -exec pylint -ry {} +
 
