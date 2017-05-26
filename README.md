@@ -40,7 +40,7 @@ Coverage also generates a html report in *coverage_html_report* and after prints
 > By configuration, we aim to get a minimum code coverage of 95%
 > Remember to use coverage before committing so the build will not fail after pushing!
 
-If you do not want coverage to be executed, use tests_no_coverage instead
+If you do not want coverage to be executed, use `make test` instead
 ```shell
 (myenv) $ make test
 ```
@@ -54,7 +54,7 @@ Settings for the coverage tool can be found in the [.coveragerc](.coveragerc) fi
 
 ## Use the Linter
 
-We gonna use pylint for linting functionality.
+We use pylint for linting functionality.
 
 First, install the pre-commit hook which will check your files with the linter before you commit.
 
@@ -82,8 +82,8 @@ Built-in the template will use a postgresql database, instead of the sqlite defa
 If you want to use sqlite instead, delete the according lines from the files:
 * [base.py]({{ project_name }}/settings/base.py)
 * [base.py]({{ project_name }}/settings/test.py)
-* In [base.txt](requirements/base.py) remove the **psycopg2** library.
-* In [docker-compose.yml](docker-compose.yml) remove the postgres container and the link for it.
+* In [base.txt](requirements/base.py) remove the *psycopg2* library.
+* In [docker-compose.yml](docker-compose.yml) remove the *postgres container* and the *link* for it.
 
 Connect to it via `make psql`.
 
@@ -95,12 +95,12 @@ Documentation on the postgresql image is found on [hub.docker.com](https://hub.d
 
 ```shell
 $ docker-compose run --rm py <your command>
-(myenv) $
 ```
 
 # Deployment
 
 The requirements the loaded in the docker build process during `make images`.
+
 Requirements are held in their files, respectively: [test](requirements/test.txt) / [development](requirements/development.txt) / [staging](requirements/staging.txt) / [production](requirements/production.txt)
 
 [base](requirements/base.txt) should be included for every stage.
