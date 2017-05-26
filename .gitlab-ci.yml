@@ -1,33 +1,31 @@
+image: docker:latest
 services:
-  - postgres:9.6
+  - docker:dind
 
 variables:
-  POSTGRES_DB: {{ project_name }}
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: "mypassword"
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 stages:
+  - build
   - test
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
 
 lint:
   stage: test
-  image: python:3.6
   script:
-  - make
-  - source myenv/bin/activate
-  - make pylint
-  allow_failure: true
+    - docker run --rm $IMAGE_TAG find {{ project_name }}/ -name "*.py" ! -path "{{ project_name }}/settings/*" ! -path "{{ project_name }}/urls.py" ! -path "{{ project_name }}/wsgi.py" -exec pylint -ry {} +
 
 unittest:
   stage: test
-  image: python:3.6
-  variables:
-    DATABASE_HOST: postgres
-    DATABASE_USER: postgres
-    DATABASE_PASSWORD: "mypassword"
   script:
-  - make
-  - source myenv/bin/activate
-  - echo test > .target
-  - make tests
+    - docker run -d -e DATABASE_HOST=postgres -e DATABASE_USER=postgres -e DATABASE_PASSWORD="mypassword" --name service-postgres postgres:9.6
+    - docker run --rm --link=service-postgres:postgres $IMAGE_TAG sh -c 'coverage run manage.py test {{ project_name }}.tests && coverage html && coverage report'
   coverage: '/TOTAL\s+\d+\s+\d+\s+(\d+)/'

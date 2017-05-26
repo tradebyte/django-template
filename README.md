@@ -8,6 +8,7 @@ You can create a new project out of this template by using a gist.
 * python3
 * bash
 * wget
+* docker and docker-compose in version 1.10.0+
 
 Do the following, replace <project_name> with your desired project name:
 ```shell
@@ -24,47 +25,36 @@ This will create a folder called *project_name* in the current directory.
 $ make
 ```
 
-This will install a virtualenv in the folder *myenv* and install requirements via pip.
-
-### Using the virtual env
-
-```shell
-$ source myenv/bin/activate
-(myenv) $
-```
-
-You can exclude the myenv directory from version control in *.git/info/exclude*
+This will build all necessary docker images and start them up.
 
 ## Executing tests
 
 ```shell
-(myenv) $ make tests
+(myenv) $ make coverage
 ```
 
 This will execute all unittests it finds in the {{ project_name }}.tests module.
 Also coverage is enabled which ends up in a file called [.coverage](.coverage) in the root directory.
 Coverage also generates a html report in *coverage_html_report* and after prints a summary to stdout.
 
-> We aim to get a minimum code coverage of 95%
+> By configuration, we aim to get a minimum code coverage of 95%
 > Remember to use coverage before committing so the build will not fail after pushing!
 
-If you do not want coverage to be executed, use tests_no_coverage instead
+If you do not want coverage to be executed, use `make test` instead
 ```shell
-(myenv) $ make tests_no_coverage
+(myenv) $ make test
 ```
 
 Both commands also work with a subset of the tests:
 ```Shell
-(myenv) $ make tests TESTMODULE={{ project_name }}.tests.models
+(myenv) $ make coverage TESTMODULE={{ project_name }}.tests.models
 ```
 
 Settings for the coverage tool can be found in the [.coveragerc](.coveragerc) file.
 
 ## Use the Linter
 
-We gonna use pylint for linting functionality.
-
-> Every file with a rating below 8.0 will be rejected after pushing a commit!
+We use pylint for linting functionality.
 
 First, install the pre-commit hook which will check your files with the linter before you commit.
 
@@ -74,37 +64,26 @@ First, install the pre-commit hook which will check your files with the linter b
 (myenv) $ make install_pre_commit
 ```
 
-This will move the *.git/hooks/pre-commit.sample* file to *.git/hooks/pre-commit*, puts content in it and makes it executable.
-
-To use the linter for your added files simply use git-pylint-commit-hook.
-```shell
-(myenv) $ git-pylint-commit-hook --ignore urls.py --ignore wsgi.py
-```
+This will create the file *.git/hooks/pre-commit* with the desired hook for the linter.
 
 You can also use pylint directly if you want to check every file (except a few which get ignored).
 ```shell
-(myenv) $ make pylint
+(myenv) $ make lint
 ```
 
 Settings for the linter can be found in the [.pylintrc](.pylintrc) file.
 
 The pylint manual can be found [here](https://pylint.readthedocs.io/en/latest/).
-The git-pylint-commit-hook tool can be found on [GitHub](https://github.com/sebdah/git-pylint-commit-hook).
 
 ## Using postgresql
 
-Built-in you can use a postgresql database, instead of the sqlite default.
+Built-in the template will use a postgresql database, instead of the sqlite default.
 
-Requirements:
-* Edit the [base.py]({{ project_name }}/settings/base.py) and [base.py]({{ project_name }}/settings/test.py) and set the **DATABASES** setting as desired.
-* Edit the [base.txt](requirements/base.py) and uncomment the line for the **psycopg2** library.
-    * After uncommenting, run `make requirements` to install **psycopg2**
-* Installed docker and docker-compose in version 1.10.0+
-
-The postgresql database is realized using docker. Use `docker-compose up -d` to boot the database server.
-Use `docker-compose down` to bring it back down.
-
-> Remember: The tests will also use this database! Therefore, you have to run it when testing or modifying [development.py]({{ project_name }}/settings/development.py) and add there the sqlite database for testing.
+If you want to use sqlite instead, delete the according lines from the files:
+* [base.py]({{ project_name }}/settings/base.py)
+* [base.py]({{ project_name }}/settings/test.py)
+* In [base.txt](requirements/base.py) remove the *psycopg2* library.
+* In [docker-compose.yml](docker-compose.yml) remove the *postgres container* and the *link* for it.
 
 Connect to it via `make psql`.
 
@@ -112,13 +91,24 @@ Connect to it via `make psql`.
 
 Documentation on the postgresql image is found on [hub.docker.com](https://hub.docker.com/_/postgres/).
 
-## Deployment
+# Running custom commands in the python container
 
-Current stage is set by a file called *.target* in the root directory of the project.
-Valid values lead to their requirements, respectively: [test](requirements/test.txt) / [development](requirements/development.txt) / [staging](requirements/staging.txt) / [production](requirements/production.txt)
+```shell
+$ docker-compose run --rm py <your command>
+```
+
+# Deployment
+
+The requirements the loaded in the docker build process during `make images`.
+
+Requirements are held in their files, respectively: [test](requirements/test.txt) / [development](requirements/development.txt) / [staging](requirements/staging.txt) / [production](requirements/production.txt)
 
 [base](requirements/base.txt) should be included for every stage.
 
-### GitLab
+## GitLab
 
 You can use GitLab-CI for deployment, the [.gitlab-ci.yml](.gitlab-ci.yml) may help in setting up the build and deployment system.
+
+Out of the box it has to stages:
+* **build**: Creates a new docker container and saves it into the gitlab Registry
+* **test**: Uses the created container for executing tests and linting
