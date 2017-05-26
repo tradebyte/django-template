@@ -1,5 +1,23 @@
 version: '2'
 services:
+  py:
+    build: .
+    image: "py"
+    volumes:
+      - .:/usr/src/app
+
+  {{ project_name }}:
+    build: .
+    command: sh init.sh
+    environment:
+      POSTGRES_PORT: 5432
+    volumes:
+      - ./:/usr/src/app
+    links:
+      - postgres:postgres
+    ports:
+      - "8000:8000"
+
   postgres:
     image: postgres:9.6
     container_name: {{ project_name }}
