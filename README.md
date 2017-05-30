@@ -91,6 +91,12 @@ Connect to it via `make psql`.
 
 Documentation on the postgresql image is found on [hub.docker.com](https://hub.docker.com/_/postgres/).
 
+## Starting an interactive python shell
+
+```shell
+make shell
+```
+
 # Running custom commands in the python container
 
 ```shell
