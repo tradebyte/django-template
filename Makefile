@@ -36,3 +36,6 @@ install_pre_commit:
 
 psql:
 	docker exec -ti --user postgres {{ project_name }}_postgres psql --dbname={{ project_name }}
+
+shell:
+	docker-compose run --rm py ipython
