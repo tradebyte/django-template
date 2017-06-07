@@ -5,4 +5,4 @@ ARG TARGET=development
 ADD . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN pip install --no-cache-dir --upgrade -r requirements/base.txt -r requirements/$TARGET.txt
+RUN pip install --no-cache-dir --upgrade -r requirements/$TARGET.txt

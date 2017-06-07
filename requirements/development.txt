@@ -1,3 +1,6 @@
+# development.txt
+-r staging.txt
+
 pylint==1.7.1
 coverage==4.3.4
 ipython
