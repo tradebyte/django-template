@@ -1,0 +1,3 @@
+pylint==1.7.1
+coverage==4.3.4
+pylint_django==0.7.2

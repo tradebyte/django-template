@@ -21,7 +21,7 @@ down:
 	docker-compose down
 
 lint:
-	docker-compose run --rm py find {{ project_name }}/ -name "*.py" ! -path "{{ project_name }}/settings/*" ! -path "{{ project_name }}/urls.py" ! -path "{{ project_name }}/wsgi.py" -exec pylint -ry {} +
+	docker-compose run --rm py find {{ project_name }}/ -name "*.py" ! -path "{{ project_name }}/settings/*" ! -path "{{ project_name }}/urls.py" ! -path "{{ project_name }}/wsgi.py" -exec pylint --load-plugins pylint_django -ry {} +
 
 test:
 	docker-compose run --rm py ./manage.py test $(TESTMODULE)
