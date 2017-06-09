@@ -1,4 +1,4 @@
-pylint==1.7.1
-coverage==4.3.4
+# development.txt
+-r test.txt
+
 ipython
-pylint_django==0.7.2
