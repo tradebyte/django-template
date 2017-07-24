@@ -2,7 +2,7 @@ version: '2'
 services:
   py:
     build: .
-    image: "py"
+    image: "py-{{ project_name }}"
     volumes:
       - .:/usr/src/app
 
